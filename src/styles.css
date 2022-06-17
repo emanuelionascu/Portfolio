@@ -150,7 +150,7 @@ border-radius: 50%;
 
 .project-image {
     width: 150px;
-    border-radius: 125px;
+    border-radius: 30%;
     margin-top: 25px;
 }
 
@@ -209,4 +209,7 @@ a {
         display: none;
     }
 
+}
+.btn {
+    padding: 5px;
 }
