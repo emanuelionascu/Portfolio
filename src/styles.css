@@ -150,6 +150,7 @@ border-radius: 50%;
 
 .project-image {
     width: 150px;
+    height: 150px;
     border-radius: 30%;
     margin-top: 25px;
 }
