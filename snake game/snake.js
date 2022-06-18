@@ -61,13 +61,13 @@ function isGameOver(){
     if(headX < 0 ) {
         gameOver = true;
     }
-    else if(headX === tileCount) {
+    else if(headX === canvas.width) {
         gameOver = true;
     }
     else if(headY < 0 ) {
         gameOver = true;
     }
-    else if(headY === tileCount){
+    else if(headY === canvas.height){
         gameOver = true;
     }
 
@@ -95,7 +95,7 @@ function isGameOver(){
 
 function drawScore(){
     ctx.fillStyle = "white";
-    ctx.font = "12px Verdana";
+    ctx.font = "11px Verdana";
     ctx.fillText("Score " + score, canvas.width-50, 10);
 }
 
