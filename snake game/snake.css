@@ -1,4 +1,4 @@
-body {
+body{
     margin: 0px;
     padding: 0px;
     display: flex;
@@ -6,8 +6,7 @@ body {
     justify-content: center;
     align-items: center;
 }
-
-canvas {
+canvas{
     box-shadow: black 20px 10px 50px;
 }
 
