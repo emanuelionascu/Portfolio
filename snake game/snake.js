@@ -30,14 +30,41 @@ let yVelocity = 0;
 let score = 0;
 
 
+let previousXVelocity = 0;
+let previousYVelocity = 0;
+
 //Game Loop
 function drawGame() {
   xVelocity = inputsXVelocity;
   yVelocity = inputsYVelocity;
 
+  //Was moving right and try to move left
+  if (previousXVelocity === 1 && xVelocity === -1) {
+    xVelocity = previousXVelocity;
+  }
+
+  //Was moving left and try to move right
+  if (previousXVelocity === -1 && xVelocity === 1) {
+    xVelocity = previousXVelocity;
+  }
+
+  //Was moving up and try to move down
+  if (previousYVelocity === -1 && yVelocity === 1) {
+    yVelocity = previousYVelocity;
+  }
+
+  //Was moving down and try to move up
+  if (previousYVelocity === 1 && yVelocity === -1) {
+    yVelocity = previousYVelocity;
+  }
+
+  previousXVelocity = xVelocity;
+  previousYVelocity = yVelocity;
+
   changeSnakePosition();
   let result = isGameOver();
   if (result) {
+    document.body.removeEventListener("keydown", keyDown);
     return;
   }
 
@@ -97,7 +124,6 @@ function isGameOver() {
       gradient.addColorStop("0", " magenta");
       gradient.addColorStop("0.5", "blue");
       gradient.addColorStop("1.0", "red");
-     
       ctx.fillStyle = gradient;
 
       ctx.fillText("Game Over!", canvas.width / 6.5, canvas.height / 2);
@@ -127,9 +153,9 @@ function drawSnake() {
     ctx.fillRect(part.x * tileCount, part.y * tileCount, tileSize, tileSize);
   }
 
-  snakeParts.push(new SnakePart(headX, headY)); //Puts an item at the end of the list next to the head
+  snakeParts.push(new SnakePart(headX, headY)); //Put an item at the end of the list next to the head
   while (snakeParts.length > tailLength) {
-    snakeParts.shift(); // Removes the furthet item from the snake parts it has more than the tail size.
+    snakeParts.shift(); // Removes the furthest item from the snake parts if it has more than the tail size.
   }
 
   ctx.fillStyle = "orange";
@@ -158,34 +184,31 @@ function checkAppleCollision() {
 document.body.addEventListener("keydown", keyDown);
 
 function keyDown(event) {
-  //Up Directions
+  console.log(inputsXVelocity, inputsYVelocity);
+  //Up direction
   if (event.keyCode == 38 || event.keyCode == 87) {
-    //38 is Up Arrow, 87 is W
-    if (inputsYVelocity == 1) return;
+    //87 is W, 38 is Arrow Up
     inputsYVelocity = -1;
     inputsXVelocity = 0;
   }
 
-  //Down Direction
+  //Down direction
   if (event.keyCode == 40 || event.keyCode == 83) {
-    //40 is Up Arrow, 83 is S
-    if (inputsYVelocity == -1) return;
+    // 83 is S, 40 is Arrow Down
     inputsYVelocity = 1;
     inputsXVelocity = 0;
   }
 
   //Left Direction
   if (event.keyCode == 37 || event.keyCode == 65) {
-    //37 is Left Arrow, 65 is A
-    if (inputsXVelocity == 1) return;
+    // 65 is A, 37 is Arrow Left
     inputsYVelocity = 0;
     inputsXVelocity = -1;
   }
 
   //Right Direction
   if (event.keyCode == 39 || event.keyCode == 68) {
-    //39 is Right Arrow, 68 is D
-    if (inputsXVelocity == -1) return;
+    //68 is D, 39 is Arrow Right
     inputsYVelocity = 0;
     inputsXVelocity = 1;
   }
